@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,17 +6,33 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-         System.out.println("Welcome to Bulls and Cows game!");
 
 
-        System.out.println(readFile());
+        Scanner in = new Scanner(System.in);
+        String answer="y";   // if you want play a new game
+        while (answer.equals("y")){  // for new gamme
+            game();
+            System.out.println(" Do You want play a new game Y/N? ");
+            answer=in.next().toLowerCase();
+
+            if (answer.equals("n")) break;
+
+
+        }
+
+
+    }
+
+    private static void game() {
+        System.out.println("Welcome to Bulls and Cows game!");
+
+
+       /// System.out.println(readFile());
         int howMuchWords = readFile().size();
-        System.out.println(howMuchWords);
         int numberofWordfromList = (int) (Math.random()*howMuchWords);
-        System.out.println(numberofWordfromList);
         String secretWord = (String) readFile().get(numberofWordfromList);
 
-         System.out.println(secretWord);
+       // System.out.println(secretWord);
 
 
         System.out.println();
@@ -37,17 +50,14 @@ public class Main {
                 System.out.println(" Too much letters in this word. \n ----------");
             }
 
-            
+
         }
-         while (((word.equals(secretWord)) || (word.equals("exit"))) == false);  // - doesnt work why????
+         while (((word.equals(secretWord)) || (word.equals("exit"))) == false);  //
 
 
         System.out.println("------------------");
         System.out.println("Sycret word was:  "+secretWord+ ". Congratulations!!! \n  You are Won!!!");
         System.out.println("     The End :)");
-
-
-
     }
 
     private static void checkingForBullsAndCows( String secretWord, String word) {
@@ -83,11 +93,13 @@ public class Main {
 
 
     private static List readFile(){
+        String words= trackToFiles()+"words.txt";
+
         BufferedReader br;
         String line=null;
         List list=new ArrayList();
         try {
-            br = new BufferedReader(new FileReader("words.txt"));
+            br = new BufferedReader(new FileReader(words));
 
             while ((line=br.readLine())!= null) {
 
@@ -96,7 +108,7 @@ public class Main {
 
             }
             br.close();
-            System.out.println("---------------");
+        //    System.out.println("---------------");
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -105,4 +117,25 @@ public class Main {
         }
         return list;
     }
+
+    public static String trackToFiles() {
+        String track=new File(".").getAbsolutePath();
+        // System.out.println(track);
+
+        String [] splitTrack =track.split("");
+        //   System.out.println(splitTrack.length);
+        track="";
+
+
+        for (int i=0; i<splitTrack.length-1; i++){
+            track+=splitTrack[i];
+
+        }
+
+
+       // System.out.println(track);
+        return track;
+
+    }
+
 }
