@@ -26,19 +26,24 @@ public class Main {
         Scanner in = new Scanner(System.in);
         String word=null;
         do{
-            System.out.println("Input your word, for exit write - exit -: ");
+            System.out.println("Input your word (for open secret word write - exit): ");
             word= in.next().toLowerCase();
 
+            int counterWord=word.split("").length;
+            int counterSecretWord=secretWord.split("").length;
+            if(counterWord <=counterSecretWord ) {
+                checkingForBullsAndCows( secretWord, word);
+            }else{
+                System.out.println(" Too much letters in this word. \n ----------");
+            }
 
-            checkingForBullsAndCows( secretWord, word);
-            
             
         }
-        // while ((!word.equals(secretWord)) || (!word.equals("exit")));   - doesnt work why????
-        while (!word.equals(secretWord));
-        //   System.out.println(" Your words is  : %s  \n", word);
+         while (((word.equals(secretWord)) || (word.equals("exit"))) == false);  // - doesnt work why????
+
+
         System.out.println("------------------");
-        System.out.println("Congratulations!!! \n  You are Won!!!");
+        System.out.println("Sycret word was:  "+secretWord+ ". Congratulations!!! \n  You are Won!!!");
         System.out.println("     The End :)");
 
 
@@ -64,9 +69,10 @@ public class Main {
 
                 for (int j=0; j<minWords; j++) {
 
-                    if ( givenNumberArray[i] == secretWordArrayDublicat[j]){
+                    if ( givenNumberArray[i] == secretWordArrayDublicat[j] && givenNumberArray[j]!=secretWordArray[j]){
 
                         cows++;
+                        secretWordArrayDublicat[j]=0;
                          break;
                     }
                 }
