@@ -1,4 +1,6 @@
 slon
-kot
-pes
-skala
+kott
+pest
+skal
+poot
+
